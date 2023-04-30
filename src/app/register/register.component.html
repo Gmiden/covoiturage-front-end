@@ -1,0 +1,111 @@
+
+<body class="background"><div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="../../assets/images/logo-light.svg" alt="logo">
+              </div>
+              <h4>inscription</h4>
+              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+              <form class="pt-3" [formGroup]="registerForm" (ngSubmit)="inscrit()">
+               
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="exampleInputUsername1"   placeholder="Nom d'utilisateur" 
+                        formControlName="username"  
+                         [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+      
+                        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                          <div *ngIf="f['username'].errors['required']">Nom d'utilisateur est obligatoire</div>
+                        </div>
+        
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" formControlName="firstName"  placeholder="Enter Votre Nom" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" />
+                        <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                          <div *ngIf="f['firstName'].errors['required']">Nom est obligatoire</div>
+                        </div>
+        
+                      </div>
+                    </div> <div class="col-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="exampleInputEmail1" formControlName="lastName" placeholder="Enter Votre Prenom" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
+                        <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                          <div *ngIf="f['lastName'].errors['required']">Prenom est obligatoire</div>
+                        </div>
+        
+                      </div></div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1"    placeholder="Enter Email" formControlName="email" 
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                      <div *ngIf="f['email'].errors['required']">Email est obligatoire</div>
+                      <div *ngIf="f['email'].errors['email']">Email est incorrect</div>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" 
+                    placeholder="Enter Votre telephone"  formControlName="tel" class="form-control"
+                     [ngClass]="{ 'is-invalid': submitted && f['tel'].errors }" />
+                    <div *ngIf="submitted && f['tel'].errors" class="invalid-feedback">
+                      <div *ngIf="f['tel'].errors['required']">Telephone est obligatoire</div>
+                    </div>
+    
+    
+                  </div>
+                <div class="form-group">
+                  <select class="form-control form-control-lg" id="exampleFormControlSelect2" 
+                   formControlName="genre"  placeholder="Enter Votre genre"  
+                    [ngClass]="{ 'is-invalid': submitted && f['genre'].errors }" >
+                    <option>Homme</option>
+                    <option>Femme</option>
+                  </select>
+                  <div *ngIf="submitted && f['genre'].errors" class="invalid-feedback">
+                    <div *ngIf="f['genre'].errors['required']">genre est obligatoire</div>
+                  </div>
+
+                </div><div class="row">
+                    <div class="col-6">
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1"
+                   placeholder="Enter Password"  formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                  <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Password est obligatoire</div>
+                    <div *ngIf="f['password'].errors['minlength']">Password is court(min 6 caractere)</div>
+                  </div>
+  
+                </div> </div> 
+                <div class="col-6">
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1"
+                    placeholder="Repeat Password"  formControlName="confirmedPassword" [ngClass]="{ 'is-invalid': submitted && f['confirmedPassword'].errors }" />
+
+                    <div *ngIf="submitted && f['confirmedPassword'].errors" class="invalid-feedback">
+                      <div *ngIf="f['confirmedPassword'].errors['required']">Password Config est obligatoire</div>
+                      <div *ngIf="f['confirmedPassword'].errors['mustMatch']">Passwords must match</div>
+                    </div>
+                  </div>
+               </div></div>
+
+                <div class="mt-3">
+                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">Inscription</button>
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                  Already have an account? <a routerLink="" class="text-primary">Connexion</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div></body>

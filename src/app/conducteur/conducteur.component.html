@@ -1,0 +1,274 @@
+<div class="content-wrapper">
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title"> Liste des Conducteurs</h3>
+          <button class="btn btn-primary " (click)="OpenDialog('1000ms','500ms','')" data-toggle="modal">Ajouter nouveau Conducteur</button>
+          <ul class="navbar-nav mr-lg-2">
+            <li class="nav-item nav-search d-none d-lg-block">
+              <div class="input-group" style="width: 30% !important;
+              float: right !important">
+                <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                  <span class="input-group-text" id="search">
+                    <i class="icon-search"></i>
+                  </span>
+                </div>
+                <input type="text" [(ngModel)]="userName" class="form-control" id="navbar-search-input" placeholder="Recherche" (click)="searchUserName()"
+
+                  aria-label="search" aria-describedby="search">
+              </div>
+            </li>
+          </ul>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>
+                    Profile
+                  </th>
+
+                  <th>
+                    Nom
+                  </th>
+                  <th>
+                    Email
+                  </th>
+                  <th>
+                    Nombre des trajets
+                  </th>
+                  <th>
+                    Telphone
+                  </th>
+                  <th>
+                    Modifier
+                  </th>
+                  <th>
+                    Supprimer
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let conducteur of conducteurs; let i = index"
+                [class.active]="i == currentIndex"
+                (click)="setActiveConducteur(conducteur, i)">
+                  <td class="py-1">
+                    <img src={{conducteur.image}} alt="image" />
+                  </td>
+                  <td>
+                    {{conducteur.nom}}
+                  </td>
+                  <td>
+                    {{conducteur.email}}
+                  </td>
+                  
+                  <td>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </td>
+                  <td>
+                    {{conducteur.telephone}}
+                  </td>
+                  <td>
+                    <!--                  <i class='mdi mdi-tooltip-edit' style='font-size:25px'  data-target="#edit" data-toggle="modal"  (click)="recuper(e.id,e.username,e.firstName,e.lastName,e.email,e. birthdate,e.genre,e.tel,e.permis,e.cin,e.adress,e.photo,e.password,e.confirmedPassword)"></i>-->
+                    <i class='mdi mdi-tooltip-edit' style='font-size:25px' (click)="FunctionEdit(conducteur.id)" data-toggle="modal"></i>
+                  </td>
+                  <td>
+                    <!--                  <i class="mdi mdi-delete" style="font-size:25px;color:red"  > -->
+                    <i class="mdi mdi-delete" (click)="FunctionDelete(conducteur.id)" style="font-size:25px;color:red">
+
+                    </i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-conducteur-item  
+[viewMode]="true"
+[currentConducteur]="currentConducteur" 
+[currentConducteurId]="currentId" ></app-conducteur-item>
+
+<div class=" example-modal ">
+  <div class="modal modal-primary" id="ajout">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <h2> Ajouter nouveau Conducteur</h2>
+          <form name="form" (ngSubmit)="f.form.valid && ajout()" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Nom d'utilisateur</label>
+                  <input type="text" class="form-control" name="username" [(ngModel)]="conducteur.username"
+                    #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" required />
+                  <div *ngIf="f.submitted && username.invalid" class="invalid-feedback">
+                    <div *ngIf="username.errors['required']">Nom d'utilisateur Obligatoire</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Nom </label>
+                  <input type="text" class="form-control" name="firstName" [(ngModel)]="conducteur.prenom"
+                    #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required />
+                  <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+                    <div *ngIf="firstName.errors['required']">Nom Obligatoire</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>Prenom</label>
+                    <input type="text" class="form-control" name="lastName" [(ngModel)]="conducteur.nom"
+                      #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
+                    <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+                      <div *ngIf="lastName.errors['required']">Prenom Obligatoire</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" [(ngModel)]="conducteur.email" #email="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email />
+                    <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                      <div *ngIf="email.errors['required']">Email Obligatoire</div>
+                      <div *ngIf="email.errors['email']">address mail invalid</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> Date de naissance</label>
+                    <input type="date" class="form-control" [(ngModel)]="conducteur.dateNaissance" name=" birthdate"
+                      #birthdate="ngModel" [ngClass]="{ 'is-invalid':f. submitted && birthdate.invalid }" required />
+                    <div *ngIf="f.submitted && birthdate.invalid" class="invalid-feedback">
+                      <div *ngIf="birthdate.errors['required']">Date de naissance Obligatoire</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>genre</label>
+
+                    <select name="genre" [(ngModel)]="conducteur.genre" #genre="ngModel" class="form-control"
+                      [ngClass]="{ 'is-invalid': f.submitted && genre.invalid }">
+
+
+                      <option value="homme">Homme</option>
+                      <option [ngClass]="{ 'is-invalid': f.submitted && genre.invalid }" value="femme">Femme</option>
+                    </select>
+                    <div *ngIf="f.submitted && genre.invalid" class="invalid-feedback">
+                      <div *ngIf="genre.errors['required']">Il faut indiquer votre genre</div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>Telphone</label>
+                    <input type="text" class="form-control" [(ngModel)]="conducteur.telephone" name="tel" #tel="ngModel"
+                      [ngClass]="{ 'is-invalid':f. submitted && tel.invalid }" required />
+                    <div *ngIf="f.submitted && tel.invalid" class="invalid-feedback">
+                      <div *ngIf="tel.errors['required']">Telphone Obligatoire</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Carte d'identité</label>
+                  <input type="text" class="form-control" [(ngModel)]="conducteur.cin" name="cin" #cin="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && cin.invalid }" required />
+                  <div *ngIf="f.submitted && cin.invalid" class="invalid-feedback">
+                    <div *ngIf="cin.errors['required']"> CIN obligatoire</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Adress</label>
+                  <input type="text" class="form-control" [(ngModel)]="conducteur.adresse" name="adress"
+                    #adress="ngModel" [ngClass]="{ 'is-invalid': f.submitted && adress.invalid }" required />
+                  <div *ngIf="f.submitted && adress.invalid" class="invalid-feedback">
+                    <div *ngIf="adress.errors['required']">Adresse Obligatoire</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+
+              <label>{{conducteur.image}} </label>
+
+              <input id="file1" type='file' name="file" (change)="recuperFile($event)" class="form-control"
+                [(ngModel)]="conducteur.image" #photo="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && photo.invalid }" required />
+
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Mot de passe</label>
+                  <input type="password" class="form-control" name="password" [(ngModel)]="conducteur.password"
+                    #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required
+                    minlength="6" />
+                  <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                    <div *ngIf="password.errors['required']">Mot de passe Obligatoire</div>
+                    <div *ngIf="password.errors['minlength']">Mot de passe doit etre plus que 6 characters</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Confirmation Mot de passe </label>
+                  <input type="password" class="form-control" name="confirmPassword"
+                    [(ngModel)]="conducteur.password" #confirmedPassword="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && confirmedPassword.invalid }" required />
+                  <div *ngIf="f.submitted && confirmedPassword.invalid" class="invalid-feedback">
+                    <div *ngIf="confirmedPassword.errors['required']">Confirmetion Mot de passe Obligatoire</div>
+                    <div *ngIf="confirmedPassword.errors['mustMatch']">Mot de passes ne sont pas identique</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary" (click)="ajout()" data-dismiss="modal">AJOUTER</button>
+                <button class="btn btn-light" data-dismiss="modal" (click)="closemodal()">Annuler</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

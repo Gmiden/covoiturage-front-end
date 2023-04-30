@@ -1,0 +1,156 @@
+<h1 mat-dialog-title>Conducteur</h1>
+
+<form #f="ngForm" [formGroup]="Reactiveform" (ngSubmit)="SaveEmployee()">
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>id</mat-label>
+                        <input placeholder="Id" matInput formControlName="id">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>UserName</mat-label>
+                        <input placeholder="UserName" matInput formControlName="userName">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>prenom</mat-label>
+                        <input placeholder="prenom" matInput formControlName="prenom">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <div class="col-6">
+                        <mat-form-field>
+                            <mat-label>nom</mat-label>
+                            <input placeholder="nom" matInput formControlName="nom">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>password</mat-label>
+                        <input placeholder="password" matInput formControlName="password">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>Confirmation</mat-label>
+                        <input placeholder="confirmedPassword" matInput formControlName="confirmedPassword">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>CNI</mat-label>
+                        <input placeholder="cin" matInput formControlName="cin">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>adresse</mat-label>
+                        <input placeholder="adresse" matInput formControlName="adresse">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input placeholder="Email" matInput formControlName="email">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>Phone</mat-label>
+                        <input placeholder="Phone" matInput formControlName="phone">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-form-field>
+                        <mat-label>Vehicule principale</mat-label>
+                        <mat-select formControlName="vehiculePrincipale">
+                            <mat-option *ngFor="let item of currentConducteur.vehicules" [value]="item.marque">
+                                {{item.marque}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-6">
+                <div>
+                    <div class="dropZone" appDrag (files)="fileDropped($event)">
+                        <div class="textWrapper">
+                            <div class="centered">
+                                Drag and drop or
+                                <a (click)="selectFile.click()" class="browse-button">browse</a>
+                                file
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <div class="row">
+                            <div style="position: relative;margin-right: auto;margin-left: auto;">
+                                <img [src]="imageFile.url" width="200px" height="200px">
+                            </div>
+                        </div>
+                    </div>
+                    <input style="display:none;" type="file" #selectFile value="select" (change)="uploadImage($event)">
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <mat-radio-group formControlName="gender" aria-label="Select an Gender">
+                        <mat-radio-button value="M">Male</mat-radio-button>
+                        <mat-radio-button value="F">Female</mat-radio-button>
+                    </mat-radio-group>
+
+                </div>
+            </div>
+        </div>
+        <section class="example-section">
+            <br>
+            <mat-checkbox formControlName="isactive" class="example-margin">Is Active</mat-checkbox>
+        </section>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        <button type="submit" mat-raised-button color="primary" cdkFocusInitial>Save</button>
+    </div>
+
+</form>

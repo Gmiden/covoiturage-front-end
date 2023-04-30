@@ -1,0 +1,6 @@
+export class Vehicule {
+  id!: string;
+  marque!: string;
+  couleur!: string;
+  matricule!:string
+}
